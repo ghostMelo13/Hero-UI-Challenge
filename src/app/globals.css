@@ -7,10 +7,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --iconColor: #1D1C1B;
 }
 .dark {
   --background: #0F0F0F;
   --foreground: #ffffff;
+  --darkIconColor: #F3F3F3;
 }
 
 @theme inline {

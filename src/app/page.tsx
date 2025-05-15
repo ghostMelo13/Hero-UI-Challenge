@@ -2,6 +2,7 @@
 import { ThemeSwitcher } from "@/components/custom/ThemeSwitcher";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { NewChatIcon, SearchIcon } from "@/components/custom/icons";
 
 export default function Home() {
   const [sideMenuToggle, setSideMenuToggle] = useState(false);
@@ -40,20 +41,23 @@ export default function Home() {
     <div className="relative flex min-h-screen font-[family-name:var(--font-geist-sans)]">
       <aside id="sidebar-multi-level-sidebar" className={`fixed lg:sticky left-0 top-0 z-10 h-[100dvh] ${sideMenuToggle ? 'w-full' : 'w-0'} overflow-hidden transition-all duration-300 lg:max-w-[224px] lg:pointer-events-auto ${sideMenuToggle ? 'opacity-100' : 'opacity-0 lg:opacity-100'}  ${sideMenuToggle ? 'pointer-events-auto' : 'pointer-events-none'} ${sideMenuToggle ? 'translate-x-0' : '-translate-x-full'}`} aria-label="Sidebar">
         <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>
-        <div id="sidebar-contents" ref={sideMenuRef} className={`relative h-[100dvh] text-[#fff] max-w-[224px] mr-auto px-2 py-4 transition-transform duration-300 ease-in-out flex flex-col gap-4 overflow-y-auto bg-[#E2E2E2] dark:bg-[#0A0A0A]`}>
+        <div id="sidebar-contents" ref={sideMenuRef} className={`relative h-[100dvh] text-[#fff] max-w-[224px] mr-auto px-2 py-4 transition-transform duration-300 ease-in-out flex flex-col gap-4 overflow-y-auto bg-[#E2E2E2] dark:bg-[#0A0A0A] border-r border-[#D4D4D4] dark:border-[#3D3D3D]`}>
           <div className="flex gap-3 text-[#fff] items-center mx-auto w-[94%]">
-            <button onClick={closeSideMenu} className="p-1 rounded-lg hover:bg-neutral-700">
-              <svg className="text-[#1F1F1F] dark:text-[#F3F3F3]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <button onClick={closeSideMenu} className="p-1 rounded-lg hover:bg-neutral-700 cursor-pointer">
+              <svg className="text-[#1D1C1B] dark:text-[#F3F3F3]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.5 10H11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M6.5 14H10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M15 3L15 13M15 17L15 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M2 11V13C2 16.7712 2 18.6569 3.17157 19.8284C4.34315 21 6.22876 21 10 21H14C17.7712 21 19.6569 21 20.8284 19.8284C22 18.6569 22 16.7712 22 13V11C22 7.22876 22 5.34315 20.8284 4.17157C19.6569 3 17.7712 3 14 3H10C6.22876 3 4.34315 3 3.17157 4.17157C2.51839 4.82475 2.22937 5.69989 2.10149 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </button>
-            <div className="ml-auto">
-              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-              </svg>
+            <div className="ml-auto flex gap-1">
+              <div className="p-1 rounded-lg hover:bg-neutral-700 text-neutral-200">
+                <SearchIcon className="text-[var(--iconColor)] dark:text-[var(--darkIconColor)]" />
+              </div>
+              <div className="p-1 rounded-lg hover:bg-neutral-700 text-neutral-200">
+                <NewChatIcon className="text-[var(--iconColor)] dark:text-[var(--darkIconColor)]" />
+              </div>
             </div>
           </div>
           <ul className="space-y-2 font-medium">
@@ -70,7 +74,7 @@ export default function Home() {
         </div>
       </aside>
       
-      <div className="flex-1 w-full border border-red-200">
+      <section className="flex-1 w-full">
         <header className="flex border-b border-[#e1e1e1] dark:border-[#373737] justify-between items-center gap-2 sm:gap-4 px-4 sm:px-8 py-3">
           <button 
             onClick={onClickToggleSideMenu} 
@@ -78,7 +82,7 @@ export default function Home() {
             className={`transition-all duration-300 ${sideMenuToggle ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'}`}
           >
             <div className="p-1 rounded-lg hover:bg-neutral-700">
-              <svg className="text-[#1F1F1F] dark:text-[#F3F3F3]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <svg className="text-[#1D1C1B] dark:text-[#F3F3F3]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.5 10H11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M6.5 14H10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M15 3L15 13M15 17L15 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -86,11 +90,20 @@ export default function Home() {
               </svg>
             </div>
           </button>
+          <button className={`transition-all duration-300 ${sideMenuToggle ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'}`}>
+            <div className="p-1 rounded-lg hover:bg-neutral-700">
+              <NewChatIcon className="text-[var(--iconColor)] dark:text-[var(--darkIconColor)]" />
+            </div>
+          </button>
           <div className="ml-auto">
             <ThemeSwitcher />
           </div>
         </header>
-      </div>
+      </section>
     </div>
   );
 }
+
+
+
+
