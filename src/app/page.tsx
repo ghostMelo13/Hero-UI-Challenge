@@ -10,6 +10,7 @@ export default function Home() {
   const [mainClick, setMainClick] = useState(false);
   const sideMenuRef = useRef(null);
   const menuBtnRef = useRef(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const handleClick = (e: any) => {
@@ -36,6 +37,32 @@ export default function Home() {
   const closeSideMenu = () => {
     setSideMenuToggle(false);
   }
+
+  const autoResize = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      // Reset height to auto to get the correct scrollHeight
+      textarea.style.height = 'auto';
+      // Set the height to scrollHeight to fit content
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  };
+
+  // Handle keydown for Enter press
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      // Handle send message here if needed
+    }
+    // Resize on any keydown to handle deletions
+    autoResize();
+  };
+
+  // Handle input for any text changes
+  const handleInput = () => {
+    autoResize();
+  };
+
 
   return (
     // p-8 pb-20 gap-16 sm:p-20  font-[family-name:var(--font-geist-sans)]
@@ -105,8 +132,28 @@ export default function Home() {
           </div>
         </header>
         <main className="border border-red-700 w-[60vw] max-w-[60vw] h-full self-center flex flex-col items-center">
-          <div className="flex flex-col">
-            <h3></h3>
+          <div className="flex flex-col text-center mt-32">
+            <h3 className="text-[28px] font-medium text-[#1D1C1B] dark:text-[#F3F3F3]">Welcome to Aura.</h3>
+            <h3 className="text-[28px] font-medium text-[#666462] dark:text-[#B0B0B0]/70">How can I help you today?</h3>
+          </div>
+          <div className="mt-8 border border-red-400 w-[90%] max-w-[51rem]">
+
+            <textarea 
+              ref={textareaRef}
+              dir="auto" 
+              aria-label="Ask Aura anything" 
+              className="scrollbar-hide border border-green-200 w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 pt-5 my-0 mb-5" 
+              style={{
+                resize: 'none',
+                overflow: 'auto',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none'
+              }} 
+              spellCheck="false"
+              onInput={handleInput}
+              onKeyDown={handleKeyDown}
+            ></textarea>
+
           </div>
         </main>
       </section>
