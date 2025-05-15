@@ -8,11 +8,14 @@
   --background: #ffffff;
   --foreground: #171717;
   --iconColor: #1D1C1B;
+  --btnHover: #E0E0E0;
 }
+
 .dark {
   --background: #0F0F0F;
   --foreground: #ffffff;
   --darkIconColor: #F3F3F3;
+  --darkBtnHover: #272727;
 }
 
 @theme inline {
