@@ -1,7 +1,6 @@
 "use client"
 import { ThemeSwitcher } from "@/components/custom/ThemeSwitcher";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { ArrowUpIcon, AttachmentIcon, BlubIcon, GlobeIcon, NewChatIcon, SearchIcon } from "@/components/custom/icons";
 import BgFadedDropdown from '@/components/ui/dropdown';
 import { Button } from "@heroui/react";
@@ -45,8 +44,10 @@ export default function Home() {
     if (textarea) {
       // Reset height to auto to get the correct scrollHeight
       textarea.style.height = 'auto';
+      const newHeight = Math.min(textarea.scrollHeight, 240);
       // Set the height to scrollHeight to fit content
-      textarea.style.height = `${textarea.scrollHeight}px`;
+      textarea.style.height = `${newHeight}px`;
+      textarea.style.overflowY = textarea.scrollHeight > 240 ? 'auto' : 'hidden';
     }
   };
 
@@ -144,7 +145,7 @@ export default function Home() {
               ref={textareaRef}
               dir="auto" 
               aria-label="Ask Aura anything" 
-              className="scrollbar-hide w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 pt-2 my-0 mb-5 max-h-[500px]" 
+              className="scrollbar-hide w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 max-h-[240px] pt-2 my-0 mb-5" 
               style={{
                 resize: 'none',
                 overflow: 'auto',
