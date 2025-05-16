@@ -2,8 +2,9 @@
 import { ThemeSwitcher } from "@/components/custom/ThemeSwitcher";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { NewChatIcon, SearchIcon } from "@/components/custom/icons";
+import { ArrowUpIcon, AttachmentIcon, BlubIcon, GlobeIcon, NewChatIcon, SearchIcon } from "@/components/custom/icons";
 import BgFadedDropdown from '@/components/ui/dropdown';
+import { Button } from "@heroui/react";
 
 export default function Home() {
   const [sideMenuToggle, setSideMenuToggle] = useState(false);
@@ -11,6 +12,7 @@ export default function Home() {
   const sideMenuRef = useRef(null);
   const menuBtnRef = useRef(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [hasContent, setHasContent] = useState(false);
 
   useEffect(() => {
     const handleClick = (e: any) => {
@@ -136,13 +138,13 @@ export default function Home() {
             <h3 className="text-[28px] font-medium text-[#1D1C1B] dark:text-[#F3F3F3]">Welcome to Aura.</h3>
             <h3 className="text-[28px] font-medium text-[#666462] dark:text-[#B0B0B0]/70">How can I help you today?</h3>
           </div>
-          <div className="mt-8 border border-red-400 w-[90%] max-w-[51rem]">
-
+          <div className="mt-8 relative border bg-[#FCFCFC] dark:bg-[#1E1E1E] border-[#E4E4E4]/63 dark:border-[#2F2F2F] w-[90%] max-w-[51rem] px-3 pt-2 pb-[11px] rounded-[28px] shadow-[0px_1px_13px_-5px_rgba(0,_0,_0,_0.25)] dark:shadow-none">
+            <span className={`absolute top-[18px] left-[24px] text-[#646362] dark:text-[#949494] text-sm pointer-events-none ${hasContent? 'opacity-0' : 'opacity-100'}`}>Ask a question...</span>
             <textarea 
               ref={textareaRef}
               dir="auto" 
               aria-label="Ask Aura anything" 
-              className="scrollbar-hide border border-green-200 w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 pt-5 my-0 mb-5" 
+              className="scrollbar-hide w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 pt-2 my-0 mb-5 max-h-[500px]" 
               style={{
                 resize: 'none',
                 overflow: 'auto',
@@ -150,10 +152,32 @@ export default function Home() {
                 msOverflowStyle: 'none'
               }} 
               spellCheck="false"
-              onInput={handleInput}
+              onInput={(e) => {
+                handleInput();
+                setHasContent(e.currentTarget.value.length > 0)
+              }}
               onKeyDown={handleKeyDown}
             ></textarea>
-
+            <div className=" w-full flex justify-between">
+              <div className="flex gap-1">
+                <Button isIconOnly color="default" variant="faded" className="p-3 rounded-full border border-[#EDEDED] dark:border-[#666666]/30 bg-inherit">
+                  <AttachmentIcon />
+                </Button>
+                <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
+                  <span><GlobeIcon /></span>
+                  <span>Search</span>
+                </Button>
+                <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
+                  <span><BlubIcon /></span>
+                  <span>Search</span>
+                </Button>
+              </div>
+              <div className="ml-auto">
+                <Button isIconOnly color="default" variant="faded" className=" rounded-full bg-[#E8E8E4] dark:bg-white border border-[#EDEDED] dark:border-[#666666]/30">
+                  <ArrowUpIcon className="dark:text-black" />
+                </Button>
+              </div>
+            </div>
           </div>
         </main>
       </section>
