@@ -9,7 +9,7 @@ export function ThemeSwitcher() {
   useEffect(() => {
     setMounted(true);
   }, []);
-  if(!mounted){
+  if (!mounted) {
     return null;
   }
 

@@ -1,8 +1,12 @@
-import {Card, CardFooter, Image, Button, cn} from "@heroui/react";
+import { Card, CardFooter, Image, Button, cn } from "@heroui/react";
 
-export default function BlurredFooterCard({ className ="" }) {
+export default function BlurredFooterCard({ className = "" }) {
   return (
-    <Card isFooterBlurred className={cn("border border-[#1B1B1B]/84 w-fit", className)} radius="lg">
+    <Card
+      isFooterBlurred
+      className={cn("border border-[#1B1B1B]/84 w-fit", className)}
+      radius="lg"
+    >
       <Image
         alt="Woman listing to music"
         className="object-cover"

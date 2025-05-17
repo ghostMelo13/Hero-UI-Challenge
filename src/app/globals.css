@@ -7,14 +7,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --iconColor: #1D1C1B;
-  --btnHover: #E0E0E0;
+  --iconColor: #1d1c1b;
+  --btnHover: #e0e0e0;
 }
 
 .dark {
-  --background: #0F0F0F;
+  --background: #0f0f0f;
   --foreground: #ffffff;
-  --darkIconColor: #F3F3F3;
+  --darkIconColor: #f3f3f3;
   --darkBtnHover: #272727;
 }
 
@@ -44,6 +44,6 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

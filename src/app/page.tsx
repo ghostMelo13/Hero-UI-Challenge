@@ -305,7 +305,7 @@ export default function Home() {
               <HollowArrowRight className="text-[#575757]" />
             </div>
             <div className="border-b border-[#303030] p-3 cursor-pointer flex justify-between hover:bg-zinc-100 dark:hover:bg-zinc-800">
-              <span>How can I improve my team's productivity?</span>
+              <span>How can I improve my team&apos;s productivity?</span>
               <HollowArrowRight className="text-[#575757]" />
             </div>
           </div>}
