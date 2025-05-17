@@ -7,18 +7,17 @@ import { Button } from "@heroui/react";
 
 export default function Home() {
   const [sideMenuToggle, setSideMenuToggle] = useState(false);
-  const [mainClick, setMainClick] = useState(false);
-  const sideMenuRef = useRef(null);
-  const menuBtnRef = useRef(null);
+  const sideMenuRef = useRef<HTMLDivElement>(null);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [hasContent, setHasContent] = useState(false);
 
   useEffect(() => {
-    const handleClick = (e: any) => {
+    const handleClick = (e: MouseEvent) => {
       if (window.innerWidth < 1024) {
         console.log("eve", e.target, window.innerWidth);
-        if (!menuBtnRef?.current.contains(e.target)) {
-          if (!sideMenuRef?.current?.contains(e.target)) {
+        if (menuBtnRef.current && !menuBtnRef?.current.contains(e.target as Node)) {
+          if (sideMenuRef.current && !sideMenuRef?.current?.contains(e.target as Node)) {
             console.log("Closingggg")
             setSideMenuToggle(false);
           }

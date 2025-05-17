@@ -1,6 +1,6 @@
 "use client";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, SVGProps } from "react";
 
 import { Switch } from "@heroui/react";
 export function ThemeSwitcher() {
@@ -9,6 +9,10 @@ export function ThemeSwitcher() {
   useEffect(() => {
     setMounted(true);
   }, []);
+  if(!mounted){
+    return null;
+  }
+
   return (
     <Switch
       color="default"
@@ -28,7 +32,7 @@ export function ThemeSwitcher() {
   );
 }
 
-export const MoonIcon = (props: any) => {
+export const MoonIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       aria-hidden="true"
@@ -47,7 +51,7 @@ export const MoonIcon = (props: any) => {
   );
 };
 
-export const SunIcon = (props: any) => {
+export const SunIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       aria-hidden="true"

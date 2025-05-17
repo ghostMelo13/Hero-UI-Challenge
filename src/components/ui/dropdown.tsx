@@ -1,4 +1,5 @@
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, cn } from "@heroui/react";
+import { SVGProps } from "react";
 
 export default function BgFadedDropdown() {
     const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0";
@@ -47,7 +48,7 @@ export default function BgFadedDropdown() {
 }
 
 
-export const AddNoteIcon = (props: any) => {
+export const AddNoteIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             aria-hidden="true"
@@ -72,7 +73,7 @@ export const AddNoteIcon = (props: any) => {
     );
 };
 
-export const CopyDocumentIcon = (props: any) => {
+export const CopyDocumentIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             aria-hidden="true"
@@ -101,7 +102,7 @@ export const CopyDocumentIcon = (props: any) => {
     );
 };
 
-export const EditDocumentIcon = (props: any) => {
+export const EditDocumentIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             aria-hidden="true"
@@ -126,7 +127,7 @@ export const EditDocumentIcon = (props: any) => {
     );
 };
 
-export const DeleteDocumentIcon = (props: any) => {
+export const DeleteDocumentIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg
             aria-hidden="true"
