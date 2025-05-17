@@ -208,7 +208,7 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <div className={`fixed bottom-0 left-0 w-full flex justify-center bg-[var(--background)] dark:bg-[var(--background)] py-4 ${sideMenuToggle && '!w-[80%] ml-[224px]'}`}>
+              <div className={`fixed bottom-0 left-0 w-full flex justify-center bg-[var(--background)] dark:bg-[var(--background)] py-4 ${sideMenuToggle && '!w-[80%] 2xl:!w-[88%] ml-[224px]'}`}>
                 <div className="mt-8 relative border bg-[#FCFCFC] dark:bg-[#1E1E1E] border-[#E4E4E4]/63 dark:border-[#2F2F2F] w-[90%] max-w-[51rem] px-3 pt-2 pb-[11px] rounded-[28px] shadow-[0px_1px_13px_-5px_rgba(0,_0,_0,_0.25)] dark:shadow-none">
                   <span className={`absolute top-[18px] left-[24px] text-[#646362] dark:text-[#949494] text-sm pointer-events-none ${hasContent? 'opacity-0' : 'opacity-100'}`}>Ask a question...</span>
                   <textarea 
