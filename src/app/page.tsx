@@ -2,8 +2,10 @@
 import { ThemeSwitcher } from "@/components/custom/ThemeSwitcher";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpIcon, AttachmentIcon, BlubIcon, GlobeIcon, NewChatIcon, SearchIcon } from "@/components/custom/icons";
-import BgFadedDropdown from '@/components/ui/dropdown';
+import BgFadedDropdown from '@/components/ui/FadedDropdown';
 import { Button } from "@heroui/react";
+import BlurredFooterCard from "@/components/ui/card";
+import DropdownWithIcons from "@/components/ui/IconsDropdown";
 
 export default function Home() {
   const [sideMenuToggle, setSideMenuToggle] = useState(false);
@@ -94,10 +96,13 @@ export default function Home() {
           <ul className=" font-medium">
             <li>
               <a target="_blank" className="group flex text-sm items-center py-2 text-[#414141] dark:hover:bg-zinc-900 hover:bg-zinc-300 rounded-lg dark:text-white group cursor-pointer">
-                <span className="ms-3">doiajniodnwbuiojefwa</span>
+                <span className="ms-3">Blog Page UI Design</span>
+                <DropdownWithIcons />
               </a>
             </li>
           </ul>
+          <BlurredFooterCard className="mt-auto" />
+
         </div>
       </aside>
 
@@ -124,7 +129,7 @@ export default function Home() {
               </div>
             </button>
 
-            <div className={`transition-all duration-500 ${sideMenuToggle ? '-ml-4' : 'ml-2'}`}>
+            <div className={`transition-all duration-500 z-0 ${sideMenuToggle ? '-ml-4' : 'ml-2'}`}>
               <BgFadedDropdown />
             </div>
           </div>
@@ -133,7 +138,7 @@ export default function Home() {
             <ThemeSwitcher />
           </div>
         </header>
-        <main className="border border-red-700 w-[60vw] max-w-[60vw] h-full self-center flex flex-col items-center">
+        <main className="w-[80%] lg:w-[60vw] max-w-[80vw] lg:max-w-[60vw] h-full self-center flex flex-col items-center">
           <div className="flex flex-col text-center mt-32">
             <h3 className="text-[28px] font-medium text-[#1D1C1B] dark:text-[#F3F3F3]">Welcome to Aura.</h3>
             <h3 className="text-[28px] font-medium text-[#666462] dark:text-[#B0B0B0]/70">How can I help you today?</h3>

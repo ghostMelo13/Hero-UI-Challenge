@@ -1,47 +1,32 @@
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, cn } from "@heroui/react";
 import { SVGProps } from "react";
+import { ArrowDown } from "../custom/icons";
 
 export default function BgFadedDropdown() {
     const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0";
     return (
         <Dropdown backdrop="blur" className="transition-all duration-500">
             <DropdownTrigger>
-                <Button variant="light" className="">Open Menu</Button>
+                <Button variant="light" className="">
+                    <span>Aurora</span>
+                    <span><ArrowDown className="text-[#717171]" /></span>
+                </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions" variant="faded">
                 <DropdownItem
                     key="new"
-                    description="Create a new file"
+                    description="Fastest model for small tasks"
                     startContent={<AddNoteIcon className={iconClasses} />}
                 >
-                    New file
+                    Nimbus
                 </DropdownItem>
                 <DropdownItem
                     key="copy"
-                    description="Copy the file link"
+                    description="Our smartest model yet"
                     startContent={<CopyDocumentIcon className={iconClasses} />}
                 >
-                    Copy link
+                    Quantum
                 </DropdownItem>
-                <DropdownItem
-                    key="edit"
-                    showDivider
-                    description="Allows you to edit the file"
-                    startContent={<EditDocumentIcon className={iconClasses} />}
-                >
-                    Edit file
-                </DropdownItem>
-                <DropdownItem
-                    key="delete"
-                    className="text-danger"
-                    color="danger"
-                    description="Permanently delete the file"
-                    startContent={<DeleteDocumentIcon className={cn(iconClasses, "text-danger")} />}
-                >
-                    Delete file
-                </DropdownItem>
-
-
             </DropdownMenu>
         </Dropdown>
     );

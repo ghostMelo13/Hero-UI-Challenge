@@ -48,3 +48,23 @@ export const ArrowUpIcon = ({className = ""}) => (
         <path d="M12 20.5V3.67" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 )
+export const DotsCircle = ({className = ""}) => (
+    <svg className={className} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_9_129)">
+            <path d="M6.75 9C6.75 9.41421 6.41421 9.75 6 9.75C5.58579 9.75 5.25 9.41421 5.25 9C5.25 8.58579 5.58579 8.25 6 8.25C6.41421 8.25 6.75 8.58579 6.75 9Z" fill="currentColor"/>
+            <path d="M9.75 9C9.75 9.41421 9.41421 9.75 9 9.75C8.58579 9.75 8.25 9.41421 8.25 9C8.25 8.58579 8.58579 8.25 9 8.25C9.41421 8.25 9.75 8.58579 9.75 9Z" fill="currentColor"/>
+            <path d="M12.75 9C12.75 9.41421 12.4142 9.75 12 9.75C11.5858 9.75 11.25 9.41421 11.25 9C11.25 8.58579 11.5858 8.25 12 8.25C12.4142 8.25 12.75 8.58579 12.75 9Z" fill="currentColor"/>
+            <path d="M5.25 2.50337C6.35315 1.86523 7.63392 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 7.63392 1.86523 6.35315 2.50337 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_9_129">
+                <rect width="18" height="18" fill="white"/>
+            </clipPath>
+        </defs>
+    </svg>
+)
+export const ArrowDown = ({className = ""}) => (
+    <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.28 5.96667L8.93333 10.3133C8.42 10.8267 7.58 10.8267 7.06667 10.3133L2.72 5.96667" stroke="currentColor" stroke-width="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+)
