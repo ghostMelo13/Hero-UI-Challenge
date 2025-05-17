@@ -1,7 +1,7 @@
 "use client"
 import { ThemeSwitcher } from "@/components/custom/ThemeSwitcher";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpIcon, AttachmentIcon, BlubIcon, GlobeIcon, NewChatIcon, SearchIcon } from "@/components/custom/icons";
+import { ArrowUpIcon, AttachmentIcon, BlubIcon, GlobeIcon, HollowArrowRight, NewChatIcon, SearchIcon } from "@/components/custom/icons";
 import BgFadedDropdown from '@/components/ui/FadedDropdown';
 import { Button } from "@heroui/react";
 import BlurredFooterCard from "@/components/ui/card";
@@ -107,7 +107,7 @@ export default function Home() {
       </aside>
 
       <section className="flex-1 flex flex-col w-full">
-        <header className="border-b border-zinc-800 flex items-center !gap-[2px] sm:gap-4 px-4 sm:px-8 py-3">
+        <header className="flex items-center !gap-[2px] sm:gap-4 px-4 sm:px-8 py-3">
           <div className="flex items-center">
             <button
               onClick={onClickToggleSideMenu}
@@ -182,6 +182,16 @@ export default function Home() {
                   <ArrowUpIcon className="dark:text-black" />
                 </Button>
               </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-[90%] lg:w-[55vw] max-w-[80vw] lg:max-w-[60vw] mt-20">
+            <div className="border-b border-[#303030] p-3 cursor-pointer flex justify-between hover:bg-zinc-100 dark:hover:bg-zinc-800">
+              <span>Can you recommend tools for project management?</span>
+              <HollowArrowRight className="text-[#575757]" />
+            </div>
+            <div className="border-b border-[#303030] p-3 cursor-pointer flex justify-between hover:bg-zinc-100 dark:hover:bg-zinc-800">
+              <span>How can I improve my team's productivity?</span>
+              <HollowArrowRight className="text-[#575757]" />
             </div>
           </div>
         </main>
