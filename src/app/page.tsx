@@ -13,6 +13,10 @@ export default function Home() {
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [hasContent, setHasContent] = useState(false);
+  const [isChatMode, setIsChatMode] = useState(false);
+  const [messages, setMessages] = useState<{ sender: 'user' | 'bot', text: string }[]>([]);
+  const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const [isBotThinking, setIsBotThinking] = useState(false);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -56,6 +60,7 @@ export default function Home() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
+      handleSendMessage();
       // Handle send message here if needed
     }
     // Resize on any keydown to handle deletions
@@ -67,9 +72,47 @@ export default function Home() {
     autoResize();
   };
 
+  const handleSendMessage = () => {
+    if(isBotThinking) return;
+
+    const textarea = textareaRef.current;
+    if (textarea && textarea.value.trim()) {
+      if (!isChatMode) {
+        setPendingMessage(textarea.value);
+        setIsChatMode(true);
+      } else {
+        setMessages(prev => [...prev, { sender: 'user', text: textarea.value }]);
+        setIsBotThinking(true);
+        setTimeout(() => {
+          setMessages(prev => [...prev, { sender: 'bot', text: "This is a mock bot response." }]);
+          setIsBotThinking(false);
+        }, 1000);
+      }
+      textarea.value = '';
+      setHasContent(false);
+    }
+  };
+
+  const createNewChat = () => {
+    setIsChatMode(false);
+    setMessages([]);
+    setPendingMessage(null);
+    setIsBotThinking(false);
+  }
+
+  useEffect(() => {
+    if (isChatMode && pendingMessage) {
+      setMessages(prev => [...prev, { sender: 'user', text: pendingMessage }]);
+      setPendingMessage(null);
+      setIsBotThinking(true);
+      setTimeout(() => {
+        setMessages(prev => [...prev, { sender: 'bot', text: "This is a mock bot response." }]);
+        setIsBotThinking(false);
+      }, 1000);
+    }
+  }, [isChatMode, pendingMessage]);
 
   return (
-    // p-8 pb-20 gap-16 sm:p-20  font-[family-name:var(--font-geist-sans)]
     <div className="relative flex min-h-screen font-[family-name:var(--font-geist-sans)]">
       <aside id="sidebar-multi-level-sidebar" className={`fixed lg:sticky left-0 top-0 z-10 h-[100dvh] ${sideMenuToggle ? 'w-full' : 'w-0'} overflow-hidden transition-all duration-300 lg:max-w-[224px] lg:pointer-events-auto ${sideMenuToggle ? 'opacity-100' : 'opacity-0 lg:opacity-100'}  ${sideMenuToggle ? 'pointer-events-auto' : 'pointer-events-none'} ${sideMenuToggle ? 'translate-x-0' : '-translate-x-full'}`} aria-label="Sidebar">
         <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>
@@ -87,7 +130,7 @@ export default function Home() {
               <div className="p-2 rounded-lg text-neutral-200 hover:bg-[var(--btnHover)] dark:hover:bg-[var(--darkBtnHover)]">
                 <SearchIcon className="text-[var(--iconColor)] dark:text-[var(--darkIconColor)]" />
               </div>
-              <div className="p-2 rounded-lg text-neutral-200 hover:bg-[var(--btnHover)] dark:hover:bg-[var(--darkBtnHover)]">
+              <div onClick={createNewChat} className="p-2 rounded-lg text-neutral-200 hover:bg-[var(--btnHover)] dark:hover:bg-[var(--darkBtnHover)]">
                 <NewChatIcon className="text-[var(--iconColor)] dark:text-[var(--darkIconColor)]" />
               </div>
             </div>
@@ -123,7 +166,7 @@ export default function Home() {
                 </svg>
               </div>
             </button>
-            <button className={`transition-opacity duration-200 ${sideMenuToggle ? 'absolute opacity-0 pointer-events-none' : 'relative opacity-100'}`}>
+            <button onClick={createNewChat} className={`transition-opacity duration-200 ${sideMenuToggle ? 'absolute opacity-0 pointer-events-none' : 'relative opacity-100'}`}>
               <div className="p-2 rounded-lg hover:bg-[var(--btnHover)] dark:hover:bg-[var(--darkBtnHover)]">
                 <NewChatIcon className="text-[var(--iconColor)] dark:text-[var(--darkIconColor)]" />
               </div>
@@ -139,52 +182,124 @@ export default function Home() {
           </div>
         </header>
         <main className="w-[80%] lg:w-[60vw] max-w-[80vw] lg:max-w-[60vw] h-full self-center flex flex-col items-center">
-          <div className="flex flex-col text-center mt-32">
+          {!isChatMode && <div className="flex flex-col text-center mt-32">
             <h3 className="text-[28px] font-medium text-[#1D1C1B] dark:text-[#F3F3F3]">Welcome to Aura.</h3>
             <h3 className="text-[28px] font-medium text-[#666462] dark:text-[#B0B0B0]/70">How can I help you today?</h3>
-          </div>
-          <div className="mt-8 relative border bg-[#FCFCFC] dark:bg-[#1E1E1E] border-[#E4E4E4]/63 dark:border-[#2F2F2F] w-[90%] max-w-[51rem] px-3 pt-2 pb-[11px] rounded-[28px] shadow-[0px_1px_13px_-5px_rgba(0,_0,_0,_0.25)] dark:shadow-none">
-            <span className={`absolute top-[18px] left-[24px] text-[#646362] dark:text-[#949494] text-sm pointer-events-none ${hasContent? 'opacity-0' : 'opacity-100'}`}>Ask a question...</span>
-            <textarea 
-              ref={textareaRef}
-              dir="auto" 
-              aria-label="Ask Aura anything" 
-              className="scrollbar-hide w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 max-h-[240px] pt-2 my-0 mb-5" 
-              style={{
-                resize: 'none',
-                overflow: 'auto',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none'
-              }} 
-              spellCheck="false"
-              onInput={(e) => {
-                handleInput();
-                setHasContent(e.currentTarget.value.length > 0)
-              }}
-              onKeyDown={handleKeyDown}
-            ></textarea>
-            <div className=" w-full flex justify-between">
-              <div className="flex gap-1">
-                <Button isIconOnly color="default" variant="faded" className="p-3 rounded-full border border-[#EDEDED] dark:border-[#666666]/30 bg-inherit">
-                  <AttachmentIcon />
-                </Button>
-                <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
-                  <span><GlobeIcon /></span>
-                  <span>Search</span>
-                </Button>
-                <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
-                  <span><BlubIcon /></span>
-                  <span>Search</span>
-                </Button>
+          </div>}
+          {isChatMode ? (
+            <div className="flex flex-col w-full h-full max-w-[600px] mx-auto pb-24">
+              <div className="flex-1 overflow-y-auto px-4 pt-8 pb-[38px] max-h-[61vh] scrollbar-hide">
+                {messages.map((msg, idx) => (
+                  <div
+                    key={idx}
+                    className={`mb-4 flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div className={`px-4 py-2 rounded-2xl max-w-[70%] ${msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-black dark:text-white'}`}>
+                      {msg.text}
+                    </div>
+                  </div>
+                ))}
+                {isBotThinking && (
+                  <div className="mb-4 flex justify-start">
+                    <div className="px-4 py-2 rounded-2xl max-w-[70%] bg-gray-200 dark:bg-gray-700 text-black dark:text-white flex items-center gap-2">
+                      <span>Thinking</span>
+                      <span className="animate-bounce">...</span>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="ml-auto">
-                <Button isIconOnly color="default" variant="faded" className=" rounded-full bg-[#E8E8E4] dark:bg-white border border-[#EDEDED] dark:border-[#666666]/30">
-                  <ArrowUpIcon className="dark:text-black" />
-                </Button>
+              <div className={`fixed bottom-0 left-0 w-full flex justify-center bg-[var(--background)] dark:bg-[var(--background)] py-4 ${sideMenuToggle && '!w-[80%] ml-[224px]'}`}>
+                <div className="mt-8 relative border bg-[#FCFCFC] dark:bg-[#1E1E1E] border-[#E4E4E4]/63 dark:border-[#2F2F2F] w-[90%] max-w-[51rem] px-3 pt-2 pb-[11px] rounded-[28px] shadow-[0px_1px_13px_-5px_rgba(0,_0,_0,_0.25)] dark:shadow-none">
+                  <span className={`absolute top-[18px] left-[24px] text-[#646362] dark:text-[#949494] text-sm pointer-events-none ${hasContent? 'opacity-0' : 'opacity-100'}`}>Ask a question...</span>
+                  <textarea 
+                    ref={textareaRef}
+                    disabled={isBotThinking}
+                    dir="auto" 
+                    aria-label="Ask Aura anything" 
+                    className="scrollbar-hide w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 max-h-[240px] pt-2 my-0 mb-5" 
+                    style={{
+                      resize: 'none',
+                      overflow: 'auto',
+                      scrollbarWidth: 'none',
+                      msOverflowStyle: 'none'
+                    }} 
+                    spellCheck="false"
+                    onInput={(e) => {
+                      handleInput();
+                      setHasContent(e.currentTarget.value.length > 0)
+                    }}
+                    onKeyDown={handleKeyDown}
+                  ></textarea>
+                  <div className=" w-full flex justify-between">
+                    <div className="flex gap-1">
+                      <Button isIconOnly color="default" variant="faded" className="p-3 rounded-full border border-[#EDEDED] dark:border-[#666666]/30 bg-inherit">
+                        <AttachmentIcon />
+                      </Button>
+                      <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
+                        <span><GlobeIcon /></span>
+                        <span>Search</span>
+                      </Button>
+                      <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
+                        <span><BlubIcon /></span>
+                        <span>Think</span>
+                      </Button>
+                    </div>
+                    <div className="ml-auto">
+                      <Button disabled={isBotThinking} onPress={handleSendMessage} isIconOnly color="default" variant="faded" className=" rounded-full bg-[#E8E8E4] dark:bg-white border border-[#EDEDED] dark:border-[#666666]/30">
+                        <ArrowUpIcon className="dark:text-black" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex flex-col w-[90%] lg:w-[55vw] max-w-[80vw] lg:max-w-[60vw] mt-20">
+          ): (
+            <>
+              <div className="mt-8 relative border bg-[#FCFCFC] dark:bg-[#1E1E1E] border-[#E4E4E4]/63 dark:border-[#2F2F2F] w-[90%] max-w-[51rem] px-3 pt-2 pb-[11px] rounded-[28px] shadow-[0px_1px_13px_-5px_rgba(0,_0,_0,_0.25)] dark:shadow-none">
+                <span className={`absolute top-[18px] left-[24px] text-[#646362] dark:text-[#949494] text-sm pointer-events-none ${hasContent? 'opacity-0' : 'opacity-100'}`}>Ask a question...</span>
+                <textarea 
+                  ref={textareaRef}
+                  dir="auto" 
+                  aria-label="Ask Aura anything" 
+                  className="scrollbar-hide w-full px-2 @[480px]/input:px-3 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 max-h-[240px] pt-2 my-0 mb-5" 
+                  style={{
+                    resize: 'none',
+                    overflow: 'auto',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
+                  }} 
+                  spellCheck="false"
+                  onInput={(e) => {
+                    handleInput();
+                    setHasContent(e.currentTarget.value.length > 0)
+                  }}
+                  onKeyDown={handleKeyDown}
+                ></textarea>
+                <div className=" w-full flex justify-between">
+                  <div className="flex gap-1">
+                    <Button isIconOnly color="default" variant="faded" className="p-3 rounded-full border border-[#EDEDED] dark:border-[#666666]/30 bg-inherit">
+                      <AttachmentIcon />
+                    </Button>
+                    <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
+                      <span><GlobeIcon /></span>
+                      <span>Search</span>
+                    </Button>
+                    <Button color="default" variant="faded" className="border-[#EDEDED] dark:border-[#666666]/30 bg-inherit rounded-full p-3">
+                      <span><BlubIcon /></span>
+                      <span>Think</span>
+                    </Button>
+                  </div>
+                  <div className="ml-auto">
+                    <Button onPress={handleSendMessage} isIconOnly color="default" variant="faded" className=" rounded-full bg-[#E8E8E4] dark:bg-white border border-[#EDEDED] dark:border-[#666666]/30">
+                      <ArrowUpIcon className="dark:text-black" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          
+          {!isChatMode && <div className="flex flex-col w-[90%] lg:w-[55vw] max-w-[80vw] lg:max-w-[60vw] mt-20">
             <div className="border-b border-[#303030] p-3 cursor-pointer flex justify-between hover:bg-zinc-100 dark:hover:bg-zinc-800">
               <span>Can you recommend tools for project management?</span>
               <HollowArrowRight className="text-[#575757]" />
@@ -193,7 +308,7 @@ export default function Home() {
               <span>How can I improve my team's productivity?</span>
               <HollowArrowRight className="text-[#575757]" />
             </div>
-          </div>
+          </div>}
         </main>
       </section>
     </div>
