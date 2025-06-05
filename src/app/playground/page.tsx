@@ -1,11 +1,18 @@
 "use client";
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import "./pl2.css";
 
+interface btnCopyType  {
+    idle: string,
+    loading: string,
+    success: string
+}
+type ButtonState = keyof btnCopyType;
+
 export default function ClipPathButton() {
-    const [buttonState, setButtonState] = useState("idle");
-    const buttonCopy: any = {
+    const [buttonState, setButtonState] = useState<ButtonState>("idle");
+    const buttonCopy: btnCopyType = {
         idle: "Send me a login link",
         loading: 'spinnerrrrr',
         success: "Login link sent!",

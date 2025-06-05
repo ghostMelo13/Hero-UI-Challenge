@@ -1,11 +1,11 @@
 "use client";
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import "./playground.css";
 import { ThemeSwitcher } from '@/components/custom/ThemeSwitcher';
 
 export default function ClipPathButton() {
-    const timeoutRef = useRef(null);
-    const buttonRef = useRef(null);
+    // const timeoutRef = useRef(null);
+    // const buttonRef = useRef(null);
 
     // clip-path: inset(0% 0-100% 0% 0% round 19px);
     return (
