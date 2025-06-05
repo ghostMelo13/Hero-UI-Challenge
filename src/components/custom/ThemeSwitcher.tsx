@@ -25,8 +25,15 @@ export function ThemeSwitcher() {
         )
       }
       onValueChange={(isSelected) => {
-        console.log("sel--", isSelected, theme);
-        setTheme(isSelected ? "light" : "dark");
+        const nextTheme = isSelected ? "light" : "dark";
+
+        if (!document.startViewTransition) {
+          setTheme(nextTheme);
+        } else {
+          document.startViewTransition(() => {
+            setTheme(nextTheme);
+          });
+        }
       }}
     ></Switch>
   );
