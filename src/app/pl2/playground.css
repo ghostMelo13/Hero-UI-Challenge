@@ -1,0 +1,78 @@
+.button {
+    position: relative;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 9999px;
+    background-color: #f6f5f5;
+    padding-inline: 24px;
+    font-weight: 500;
+    color: #21201c;
+}
+
+.button-af-hold {
+    position: absolute;
+    inset: 0px;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 9999px;
+    background-color: #FFDBDC;
+    padding-inline: 24px;
+    font-weight: 500;
+    color: #E5484D;
+    clip-path: inset(0% 100% 0% 0% round 19px);
+    transition: all 0.2s ease;
+}
+
+.button:active .button-af-hold {
+    clip-path: inset(0% 0% 0% 0%);
+    transition: all 1.5s ease;
+
+}
+
+.wrapper {
+    position: relative;
+
+}
+
+.button-af-hold .animating {
+    animation: revealClip 2s linear forwards;
+}
+
+@keyframes revealClip {
+    0% {
+        clip-path: inset(0% 100% 0% 0% round 19px);
+    }
+
+    100% {
+        clip-path: inset(0% 0% 0% 0% round 19px);
+    }
+}
+
+::view-transition-new(root) {
+    mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='20' fill='white'/></svg>") center / 0 no-repeat;
+    animation: scale 1s ease-in-out;
+}
+
+::view-transition-old(root),
+.dark::view-transition-old(root) {
+    animation: none;
+    z-index: -1;
+}
+
+.dark::view-transition-new(root) {
+    animation: scale 1s ease-in-out;
+}
+
+@keyframes scale {
+    to {
+        mask-size: 200vmax;
+    }
+}
+
+/* Link for other effects: 
+    https://theme-toggle.rdsx.dev/
+*/

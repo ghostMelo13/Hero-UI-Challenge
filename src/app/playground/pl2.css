@@ -1,0 +1,53 @@
+.button {
+    position: relative;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 9999px;
+    background-color: #f6f5f5;
+    padding-inline: 24px;
+    font-weight: 500;
+    color: #21201c;
+}
+
+.button-af-hold {
+    position: absolute;
+    inset: 0px;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 9999px;
+    background-color: #FFDBDC;
+    padding-inline: 24px;
+    font-weight: 500;
+    color: #E5484D;
+    clip-path: inset(0% 100% 0% 0% round 19px);
+    transition: all 0.2s ease;
+}
+
+.button:active .button-af-hold {
+    clip-path: inset(0% 0% 0% 0%);
+    transition: all 1.5s ease;
+
+}
+
+.wrapper {
+    position: relative;
+
+}
+
+.button-af-hold .animating {
+    animation: revealClip 2s linear forwards;
+}
+
+@keyframes revealClip {
+    0% {
+        clip-path: inset(0% 100% 0% 0% round 19px);
+    }
+
+    100% {
+        clip-path: inset(0% 0% 0% 0% round 19px);
+    }
+}
