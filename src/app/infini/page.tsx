@@ -1,10 +1,10 @@
 "use client"
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 // Use dynamic import to load the KonvaCanvas component only on the client side
-const KonvaCanvas = dynamic(() => import('@/components/custom/KonvaCanvas'), {
-    ssr: false, // This is the key to preventing server-side rendering
-});
+// const KonvaCanvas = dynamic(() => import('@/components/custom/KonvaCanvas'), {
+//     ssr: false, // This is the key to preventing server-side rendering
+// });
 
 
 export default function Infini() {
